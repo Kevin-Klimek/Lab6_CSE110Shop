@@ -16,15 +16,13 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 function createProducts() {
-  //console.log("products created");
   let base = document.getElementById("product-list");
   let products = JSON.parse(localStorage.getItem("products"));
-  console.log(products);
   for(const product of products) {
     let productElement = document.createElement("product-item");
-    productElement.setAttribute("image", product.image);
-    productElement.setAttribute("title", product.title);
-    productElement.setAttribute("price", product.price);
+    productElement.setImgAttribute(product.image, product.title);
+    productElement.setP1Attribute(product.title);
+    productElement.setP2Attribute(product.price);
     base.appendChild(productElement);
   }
 }

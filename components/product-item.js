@@ -1,9 +1,8 @@
 // product-item.js
 
 class ProductItem extends HTMLElement {
-  constructor(product) {
+  constructor() {
     super();
-    this.product = product;
     /*
     const product0 {
       title:        "title text"    //String
@@ -23,8 +22,6 @@ class ProductItem extends HTMLElement {
 
     */
 
-    // this.getAttribute("attName");
-
     // product functionality
     let shadow = this.attachShadow({mode: "open"});
 
@@ -34,24 +31,22 @@ class ProductItem extends HTMLElement {
 
     // Create image element
     let img = document.createElement("img");
-    img.setAttribute("src",this.getAttribute("image"));
-    img.setAttribute("alt",this.getAttribute("title"));
+    img.setAttribute("id","imgID")
     img.setAttribute("width","200");
 
     // Create first p element
     let p1 = document.createElement("p");
+    p1.setAttribute("id","p1");
     p1.setAttribute("class","title");
-    let p1text = document.createTextNode(this.getAttribute("title"));
-    p1.appendChild(p1text);
 
     // Create second p element
     let p2 = document.createElement("p");
+    p2.setAttribute("id","p2");
     p2.setAttribute("class","price");
-    let p2text = document.createTextNode(this.getAttribute("price"));
-    p2.appendChild(p2text);
 
     // Create button
     let button = document.createElement("button");
+    button.setAttribute("id","buttonID");
     let btext = document.createTextNode("Add to Cart");
     button.appendChild(btext);
     button.addEventListener("click", function() {
@@ -142,6 +137,23 @@ class ProductItem extends HTMLElement {
     // Add style and list item to shadow dom
     shadow.appendChild(style);
     shadow.appendChild(li);
+  }
+
+  // Sets image attributes
+  setImgAttribute(src, alt) {
+    let img = this.shadowRoot.getElementById("imgID");
+    img.setAttribute("src",src);
+    img.setAttribute("alt",alt);
+  }
+
+  // Sets first paragraph attributes
+  setP1Attribute(title) {
+    this.shadowRoot.getElementById("p1").innerHTML = title;
+  }
+
+  // Sets second paragraph attributes
+  setP2Attribute(price) {
+    this.shadowRoot.getElementById("p2").innerHTML = price;
   }
 }
 
