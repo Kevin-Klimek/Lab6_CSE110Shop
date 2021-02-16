@@ -7,13 +7,18 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!localStorage.getItem("products")) {
     fetch("https://fakestoreapi.com/products")
       .then(response => response.json())
-      .then(data => localStorage.setItem("products", JSON.stringify(data)))
-      .then(createProducts());
+      .then(data => storeProducts(data));
     }
   else {
     createProducts();
   }
 });
+
+// Helper function to make sure fetch finishes before calling createProducts();
+function storeProducts(products) {
+  localStorage.setItem("products", JSON.stringify(products));
+  createProducts();
+}
 
 function createProducts() {
   let base = document.getElementById("product-list");
