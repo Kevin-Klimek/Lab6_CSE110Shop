@@ -1,7 +1,5 @@
 // Script.js
 
-/** TODO: CHANGE CSS/HTML FILE REFERENCES BACK WHEN DONE**/
-
 window.addEventListener('DOMContentLoaded', () => {
   // check if localstorage already has the data
   if (!localStorage.getItem("products")) {
