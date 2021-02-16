@@ -47,6 +47,7 @@ class ProductItem extends HTMLElement {
     // Create button
     let button = document.createElement("button");
     button.setAttribute("id","buttonID");
+    button.setAttribute("prodID","-1");   // Embed product id as button attribute, can't figure out how to make class variables work here for the life of me. Set this later with setID().
     let btext = document.createTextNode("Add to Cart");
     button.appendChild(btext);
     button.addEventListener("click", function() {
@@ -54,10 +55,12 @@ class ProductItem extends HTMLElement {
       if (button.innerHTML == "Add to Cart") {
         counter.innerHTML = parseInt(counter.innerHTML) + 1;
         button.innerHTML = "Remove from Cart";
+        localStorage.setItem(button.getAttribute("prodID"), "0");
       }
       else {
         counter.innerHTML = parseInt(counter.innerHTML) - 1;
         button.innerHTML = "Add to Cart";
+        localStorage.removeItem(button.getAttribute("prodID"));
       }
     });
 
@@ -153,7 +156,22 @@ class ProductItem extends HTMLElement {
 
   // Sets second paragraph attributes
   setP2Attribute(price) {
-    this.shadowRoot.getElementById("p2").innerHTML = price;
+    this.shadowRoot.getElementById("p2").innerHTML = "$" + price;
+  }
+
+  // Toggles the button to "save" previous session's cart
+  toggleButton() {
+    let counter = document.getElementById("cart-count");
+    counter.innerHTML = parseInt(counter.innerHTML) + 1;
+    this.shadowRoot.getElementById("buttonID").innerHTML = "Remove from Cart";
+  }
+  
+  // Sets the product id, and checks if the id was previously in the cart.
+  setID(id) {
+    this.shadowRoot.getElementById("buttonID").setAttribute("prodID", id);
+    if (localStorage.getItem(id)) {
+      this.toggleButton();
+    }
   }
 }
 

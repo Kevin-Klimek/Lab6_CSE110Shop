@@ -20,6 +20,7 @@ function createProducts() {
   let products = JSON.parse(localStorage.getItem("products"));
   for(const product of products) {
     let productElement = document.createElement("product-item");
+    productElement.setID(product.id);
     productElement.setImgAttribute(product.image, product.title);
     productElement.setP1Attribute(product.title);
     productElement.setP2Attribute(product.price);
